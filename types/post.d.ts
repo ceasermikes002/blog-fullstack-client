@@ -1,7 +1,7 @@
 // types/post.d.ts
 
 export type Post = {
-    id: number;
+    id: string;
     title: string;
     content: string;
     slug: string;
