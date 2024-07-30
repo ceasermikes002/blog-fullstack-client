@@ -1,10 +1,10 @@
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
+import { Webhook } from 'svix';
+import { headers } from 'next/headers';
+import { WebhookEvent } from '@clerk/nextjs/server';
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-  const ADMIN_API_URL = process.env.ADMIN_API_URL;  // Add this environment variable
+  const ADMIN_API_URL = process.env.ADMIN_API_URL;
 
   if (!WEBHOOK_SECRET || !ADMIN_API_URL) {
     throw new Error('Please add WEBHOOK_SECRET and ADMIN_API_URL to .env or .env.local');
@@ -36,20 +36,20 @@ export async function POST(req: Request) {
     return new Response('Error occurred', { status: 400 });
   }
 
-  const { id, ...userData } = evt.data;
   const eventType = evt.type;
+  const { id: userId, ...userData } = evt.data;
 
   try {
     await fetch(`${ADMIN_API_URL}/api/sync-users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ eventType, userData }),
+      body: JSON.stringify({ eventType, userData, userId }),
     });
 
-    console.log(`Webhook with an ID of ${id} and type of ${eventType} processed successfully`);
+    console.log(`Webhook with an ID of ${userId} and type of ${eventType} processed successfully`);
   } catch (error) {
     console.error('Error syncing user:', error);
   }
-
+  console.log('Webhook Payload:', payload);
   return new Response('', { status: 200 });
 }
