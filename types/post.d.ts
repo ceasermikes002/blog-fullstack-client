@@ -1,5 +1,4 @@
 // types/post.d.ts
-
 export type Post = {
   authorName: ReactNode;
   id: string;
@@ -11,6 +10,6 @@ export type Post = {
   createdAt: string;
   authorImage: string;
   updatedAt: string;
-  category: String;
-  description: String;
+  category: string[]; // Update this to be an array of strings
+  description: string;
 };

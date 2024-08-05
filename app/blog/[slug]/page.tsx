@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
 import Link from "next/link";
-import { HeartIcon, StarIcon } from "@heroicons/react/24/outline";
+import { HeartIcon, StarIcon, ClockIcon } from "@heroicons/react/24/outline"; // Import the ClockIcon
 import {
   HeartIcon as HeartSolidIcon,
   StarIcon as StarSolidIcon,
@@ -67,7 +67,8 @@ const BlogPostPage = () => {
         <p className="text-gray-500 text-sm">
           Published on {new Date(post.createdAt).toLocaleDateString()}
         </p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm flex items-center justify-center">
+          <ClockIcon className="w-5 h-5 text-gray-500 mr-2" aria-hidden="true" />
           Approx. Reading Time: {readingTime}
         </p>
       </div>
